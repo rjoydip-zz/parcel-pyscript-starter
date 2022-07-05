@@ -5,6 +5,7 @@
   "main": "dist/index.html",
   "types": "dist/index.d.ts",
   "scripts": {
+    
     "start": "run-s clean compile:watch parcel:build:open",
     "compile": "tsc",
     "compile:watch": "tsc -w",

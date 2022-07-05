@@ -1,29 +1,35 @@
-name: Deploy to GitHub Pages
+name: Deploy
+
 on:
-  - pull_request
-  - push
+  release:
+    types:
+      - published
+  push:
+    branches:
+      - main
+
 jobs:
-  build-and-deploy:
+  vercel: 
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node_version:
           - latest
-        architecture:
-          - x64
-    name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }}
     steps:
       - uses: actions/checkout@v3
       - name: Setup node
         uses: actions/setup-node@v3
-        with:
-          node-version: ${{ matrix.node_version }}
-          architecture: ${{ matrix.architecture }}
       - run: yarn install
       - run: yarn build
-      - name: Deploy to GitHub Pages
-        uses: Cecilapp/GitHub-Pages-deploy@v3
+      - name: "Deploy to Vercel"
+        run: |
+          prodRun=""
+          if [[ ${GITHUB_REF} == "refs/heads/main" ]]; then
+            prodRun="--prod"
+          fi
+
+          npx vercel --token ${VERCEL_TOKEN} $prodRun
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          build_dir: dist
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}

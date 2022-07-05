@@ -1,0 +1,23 @@
+name: build
+on:
+  - pull_request
+  - push
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version:
+          - latest
+        architecture:
+          - x64
+    name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version }}
+          architecture: ${{ matrix.architecture }}
+      - run: yarn install
+      - run: yarn build

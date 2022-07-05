@@ -1,0 +1,28 @@
+name: Deploy to GitHub Pages
+on:
+  - pull_request
+  - push
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node_version:
+          - latest
+        architecture:
+          - x64
+    name: Node ${{ matrix.node_version }} - ${{ matrix.architecture }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node_version }}
+          architecture: ${{ matrix.architecture }}
+      - run: yarn install
+      - run: yarn build
+      - name: Deploy 🚀
+        uses: JamesIves/github-pages-deploy-action@4.1.0
+        with:
+          branch: gh-pages
+          folder: dist

@@ -8,7 +8,7 @@
     "start": "run-s clean compile:watch parcel:build:open",
     "compile": "tsc",
     "compile:watch": "tsc -w",
-    "parcel:build": "parcel build src/index.html --public-url parcel-pyscript-starter",
+    "parcel:build": "parcel build src/index.html",
     "parcel:build:open": "parcel build src/index.html --open",
     "build": "run-s clean compile parcel:build",
     "clean": "rimraf dist/ .cache/ .pnpm-* *-debug.log *.lock *-lock.*"

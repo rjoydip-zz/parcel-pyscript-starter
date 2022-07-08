@@ -5,13 +5,13 @@
   "main": "dist/index.html",
   "types": "dist/index.d.ts",
   "scripts": {
-    
-    "start": "run-s clean compile:watch parcel:build:open",
     "compile": "tsc",
     "compile:watch": "tsc -w",
+    "typecheck": "tsc -noEmit",
+    "start": "run-s clean compile:watch parcel:build:open",
     "parcel:build": "parcel build src/index.html --public-url .",
     "parcel:build:open": "parcel build src/index.html --open",
-    "build": "run-s clean compile parcel:build",
+    "build": "run-s clean typecheck compile parcel:build",
     "clean": "rimraf dist/ .cache/ .pnpm-* *-debug.log *.lock *-lock.*"
   },
   "repository": {

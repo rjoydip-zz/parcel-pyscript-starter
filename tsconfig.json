@@ -3,6 +3,7 @@
         "src/**/*",
         "parcel.d.ts"
     ],
+    "exclude": ["node_modules/**/*"],
     "compilerOptions": {
         "target": "es2021",
         "outDir": "./dist",
@@ -10,17 +11,10 @@
         "jsxFactory": "h",
         "jsxFragmentFactory": "Fragment",
         "moduleResolution": "Node",
-        "outFile": "dist/index.d.ts",
         "noEmitOnError": false,
         "declaration": true,
         "declarationMap": false,
-        "isolatedModules": false,
-        "emitDeclarationOnly": true,
+        "isolatedModules": true,
         "strict": true,
-        "noEmit": false,
-        "composite": false,
-        "incremental": false,
-        "experimentalDecorators": true,
-        "allowSyntheticDefaultImports": true
     }
 }
